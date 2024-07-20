@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .footer {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Confirmation Required</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{.Username}},</p>
+            <p>We have received a request to initiate a payment from your account. To ensure the security of your account, we need to confirm that you authorized this payment.</p>
+            <h3>Payment Details:</h3>
+            <p><strong>Transaction ID:</strong> {{.TrasactionID}}</p>
+            <p><strong>Amount:</strong> $ {{.Amount}}</p>
+            <p><strong>Date and Time:</strong> {{.DateTime}}</p>
+            <p>If you initiated this payment, please click the link below to confirm and complete the transaction:</p>
+            <p>
+                <a href="{{.ConfirmURL}}" class="btn">Confirm Payment</a>
+                <a href="{{.CancelURL}}" class="btn">Cancel Payment</a>
+            </p>
+            <p><strong>Important:</strong> If you did not authorize this payment, please contact our administrator immediately to secure your account and prevent any unauthorized transactions.</p>
+            <h3>Administrator Contact Information:</h3>
+            <p>Email: <a href="mailto:transact-dev@trellissoft.ai">transact-dev@trellissoft.ai</a></p>
+            <p>We take your account security very seriously and appreciate your prompt attention to this matter.</p>
+        </div>
+        <div class="footer">
+            <p>Thank you for your cooperation.</p>
+            <p>Best regards,</p>
+            <p>Trellissoft Engineering Services.Pvt.Ltd</p>
+            <p>Email: <a href="mailto:info@trellissoft.ai">info@trellissoft.ai</a></p>
+            <p><a href="https://trellissoft.ai/">[Company Website]</a></p>
+        </div>
+    </div>
+</body>
+</html>

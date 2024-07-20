@@ -1,0 +1,238 @@
+basePath: /api
+definitions:
+  models.Response:
+    properties:
+      data:
+        additionalProperties: true
+        type: object
+      messsage:
+        type: string
+      status:
+        type: integer
+    type: object
+  utils.LoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  utils.PostPaymentInput:
+    properties:
+      amount:
+        type: string
+      cardnumber:
+        type: string
+      cvv:
+        type: string
+      description:
+        type: string
+      expirydate:
+        type: string
+    required:
+    - amount
+    - cardnumber
+    - cvv
+    - expirydate
+    type: object
+  utils.RegisterInput:
+    properties:
+      companyName:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - companyName
+    - email
+    - firstName
+    - lastName
+    - password
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for a project.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: GoTransact
+  version: "1.0"
+paths:
+  /confirm-payment:
+    get:
+      consumes:
+      - application/json
+      description: Confirm payment by transaction ID and status
+      parameters:
+      - description: Transaction ID
+        in: query
+        name: transaction_id
+        required: true
+        type: string
+      - description: Status
+        in: query
+        name: status
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Confirm a payment
+      tags:
+      - Transactions
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: User login
+      parameters:
+      - description: Login input
+        in: body
+        name: loginInput
+        required: true
+        schema:
+          $ref: '#/definitions/utils.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Login
+      tags:
+      - Auth
+  /logout:
+    post:
+      consumes:
+      - application/json
+      description: Logs out a user by invalidating their token
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Logged out successfully
+          schema:
+            $ref: '#/definitions/models.Response'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Log out a user
+      tags:
+      - Auth
+  /protected/post-payment:
+    post:
+      consumes:
+      - application/json
+      description: Create a new payment request with the provided details
+      parameters:
+      - description: Authorization header with bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Payment Request Input
+        in: body
+        name: paymentInput
+        required: true
+        schema:
+          $ref: '#/definitions/utils.PostPaymentInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully created payment request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a new payment request
+      tags:
+      - Transactions
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with email, password, etc.
+      parameters:
+      - description: User Registration Input
+        in: body
+        name: registerInput
+        required: true
+        schema:
+          $ref: '#/definitions/utils.RegisterInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully registered
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Register a new user
+      tags:
+      - Auth
+swagger: "2.0"

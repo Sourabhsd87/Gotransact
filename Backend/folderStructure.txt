@@ -1,0 +1,44 @@
+
+GOTRANSACT
+│
+├── Backend
+│   └── apps
+│       ├── accounts
+│       │   ├── handlers
+│       │   ├── models
+│       │   ├── utils
+│       │   └── validators
+│       ├── base
+|       |
+│       └── transaction
+│          ├── handlers
+│          ├── models
+│          ├── utils
+│          └── validators
+├── settings
+│   |
+│   ├── transaction
+|   ├── main.go
+│  
+│      
+│
+├── config
+│   ├── env.go
+│
+├── docs
+├── middlewares
+│   └── auth_middleware.go
+│
+├── migrations
+│
+├── pkg
+│   ├── db
+│   └── logger
+│
+├── go.mod
+├── go.sum
+└── README.md
+
+                             
+
+                            

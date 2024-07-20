@@ -1,0 +1,15 @@
+# ignore all .env files
+*.env
+
+#ignore all .log files
+*.log
+
+#ignore test binaries built with `go test -c`
+*.test
+
+#ignore output of go coverage tool 
+*.out
+
+#ignore go workspace file 
+go.work
+go.work.sum
